@@ -13,6 +13,7 @@ READFILE:while(my $line = <$infile>){
     if($line =~ s/^HISTOGRAM GROUP ([0-4])/$1/){
         $write = 1;
         $histogroup = $1;
+        next READFILE;
     }
 
     if($write == 0){
