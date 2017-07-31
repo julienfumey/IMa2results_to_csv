@@ -3,7 +3,8 @@
 use strict;
 use IO::File;
 
-my $infile = IO::File("$args[0]", "<");
+my $infile = IO::File->("$ARGV[0]", "<");
+
 
 my $write = 0;
 while(my $line = <$infile>){
