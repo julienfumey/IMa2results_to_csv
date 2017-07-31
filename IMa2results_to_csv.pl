@@ -3,7 +3,7 @@
 use strict;
 use IO::File;
 
-my $infile = IO::File->("$ARGV[0]", "<");
+my $infile = IO::File->new("$ARGV[0]", "<");
 
 
 my $write = 0;
