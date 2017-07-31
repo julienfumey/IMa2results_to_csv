@@ -7,8 +7,46 @@ my $infile = IO::File->new("$ARGV[0]", "<");
 
 
 my $write = 0;
-while(my $line = <$infile>){
-    if($line =~ /^HISTOGRAM/){
-        print "toto";
+my $outfile;
+READFILE:while(my $line = <$infile>){
+    my $histogroup = 0;
+    if($line =~ s/^HISTOGRAM GROUP ([0-4])/$1/){
+        $write = 1;
+        $histogroup = $1;
+    }
+
+    if($write == 0){
+        next READFILE;
+    }
+
+    if($line =~ /^Summaries/){
+        $outfile = IO::File->next("$ARGV[0]\_group_$histogroup\_summaries.csv", ">");
+        $write = 2;
+        next READFILE;
+    }
+
+    if($line =~ /^Parameter/){
+        $outfile = IO::File->next("$ARGV[0]\_group_$histogroup\_summaries.csv", ">");
+        $write = 2;
+        next READFILE;
+    }
+
+    if ($line =~ /^$/){
+        $outfile->close();
+        $write = ;
+        next READFILE;
+    }
+
+    $outfile->write($line);
+
+
+    if($write == 1){
+        next READFILE;
+    }
+
+
+    if($line) =~ /^ASCII Curves/){
+        $write = 0;
+        last READFILE;
     }
 }
