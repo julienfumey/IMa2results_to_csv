@@ -33,7 +33,7 @@ READFILE:while(my $line = <$infile>){
 
     if ($line =~ /^$/){
         $outfile->close();
-        $write = ;
+        $write = 1;
         next READFILE;
     }
 
@@ -45,7 +45,7 @@ READFILE:while(my $line = <$infile>){
     }
 
 
-    if($line) =~ /^ASCII Curves/){
+    if($line =~ /^ASCII Curves/){
         $write = 0;
         last READFILE;
     }
