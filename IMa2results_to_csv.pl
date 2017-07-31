@@ -26,7 +26,7 @@ READFILE:while(my $line = <$infile>){
     }
 
     if($line =~ /^Parameter/){
-        $outfile = IO::File->next("$ARGV[0]\_group_$histogroup\_summaries.csv", ">");
+        $outfile = IO::File->next("$ARGV[0]\_group_$histogroup\_parameter.csv", ">");
         $write = 2;
         next READFILE;
     }
