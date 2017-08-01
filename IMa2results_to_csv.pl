@@ -26,13 +26,13 @@ READFILE:while(my $line = <$infile>){
 
     if($line =~ /^ Summaries/ && $write == 1){
         print "opening $ARGV[0]\_group_$histogroup.csv\n";
-        $outfile = IO::File->new("$ARGV[0]\_group_$histogroup.csv", ">") or die "Can't open file $!";
+        $outfile = IO::File->new("$ARGV[0]\_group_$histogroup\_summaries.csv", ">") or die "Can't open file $!";
         $write = 2;
         $countl = 1018;
         next READFILE;
     }
 
-    if ($countl == 0 && $write == 2){
+    if ($countl == 4 && $write == 2){
         print $write."\n";
         $outfile->close();
         $write = 1;
@@ -43,7 +43,12 @@ READFILE:while(my $line = <$infile>){
         next READFILE;
     }
 
-    if($write == 2 && $countl > 0){
+    if($write == 2 && $countl == 1004){
+        $outfile->close();
+        $outfile = IO::File->new("$ARGV[0]\_group_$histogroup\_values.csv", ">") or die "Can't open file $!";
+    }
+
+    if($write == 2 && $countl > 4){
         $outfile->write($line);
         $countl -= 1;
     }
