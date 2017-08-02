@@ -43,12 +43,12 @@ READFILE:while(my $line = <$infile>){
         next READFILE;
     }
 
-    if($write == 2 && $countl == 1004){
+    if($write == 2 && (($histogroup == 2 && $countl == 1005) || $histogroup != 2 && $countl == 1004){
         $outfile->close();
         $outfile = IO::File->new("$ARGV[0]\_group_$histogroup\_values.csv", ">") or die "Can't open file $!";
     }
 
-    if($write == 2 && $countl > 4){
+    if($write == 2 && (($histogroup == 2 && $countl > 5) ||  ($histogroup != 2 && $countl > 4))){
         $outfile->write($line);
         $countl -= 1;
     }
